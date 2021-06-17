@@ -1,9 +1,7 @@
 <template>
   <div class="home">
-    <b-container>
-      <h1 class="page-header">BOOKS</h1>
-      <books-grid></books-grid>
-    </b-container>
+    <h1 class="page-header">BOOKS</h1>
+    <books-grid></books-grid>
   </div>
 </template>
 
@@ -28,5 +26,10 @@ export default {
 
 .modal-dialog {
   margin: 0;
+}
+@media only screen and (max-width: 360px) {
+  .modal {
+    max-width: 250px;
+  }
 }
 </style>

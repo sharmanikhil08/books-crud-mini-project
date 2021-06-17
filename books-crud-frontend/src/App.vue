@@ -26,6 +26,7 @@ export default {
 }
 
 #nav {
+  width: 100%;
   a {
     font-weight: bold;
     color: #fff;
