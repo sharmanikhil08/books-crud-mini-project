@@ -63,7 +63,7 @@
         title="Book Updated"
         :visible="showToast"
       >
-        Your book was successfully updated!
+        Book was successfully updated!
       </b-toast>
     </b-container>
   </div>
