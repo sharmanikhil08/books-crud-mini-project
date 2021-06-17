@@ -21,16 +21,12 @@
         </template>
 
         <template #cell(actions)="row">
-          <b-button
-            size="sm"
-            @click="info(row.item, row.index, $event.target)"
-            class="mr-1"
-          >
+          <b-button size="sm" @click="edit(row.item)" class="mr-1">
             Edit
           </b-button>
           <b-button
             size="sm"
-            @click="info(row.item, row.index, $event.target)"
+            @click="edit(row.item)"
             class="mr-1"
             variant="danger"
           >
@@ -47,21 +43,18 @@
         class="my-0"
       ></b-pagination>
       <!-- Info modal -->
-      <b-modal
-        :id="infoModal.id"
-        :title="infoModal.title"
-        ok-only
-        @hide="resetInfoModal"
-      >
-        <pre>{{ infoModal.content }}</pre>
+      <b-modal id="edit-modal" title="Edit Book" centered hide-footer>
+        <edit-book :form="selectedItem"></edit-book>
       </b-modal>
     </b-container>
   </div>
 </template>
 
 <script>
+import EditBook from "@/components/EditBook.vue";
 import BookDataService from "../services/BookDataService";
 export default {
+  components: { "edit-book": EditBook },
   mounted() {
     // Get all books
     this.retrieveBooks();
@@ -99,11 +92,8 @@ export default {
       currentPage: 1,
       perPage: 7,
       totalRows: 1,
-      infoModal: {
-        id: "info-modal",
-        title: "",
-        content: "",
-      },
+      selectedItem: {},
+      showEdit: false,
     };
   },
   methods: {
@@ -118,14 +108,10 @@ export default {
           console.log(e);
         });
     },
-    info(item, index, button) {
-      this.infoModal.title = `Row index: ${index}`;
-      this.infoModal.content = JSON.stringify(item, null, 2);
-      this.$root.$emit("bv::show::modal", this.infoModal.id, button);
-    },
-    resetInfoModal() {
-      this.infoModal.title = "";
-      this.infoModal.content = "";
+    edit(item) {
+      this.selectedItem = item;
+      this.showEdit = true;
+      this.$root.$emit("bv::show::modal", "edit-modal");
     },
   },
 };
