@@ -56,6 +56,7 @@ namespace Books_Crud_API.Controllers
         /// <param name="book">Book with updated information</param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(List<Book>), StatusCodes.Status204NoContent)]
         public async Task<IActionResult> PutBook(int id, Book book)
         {
             if (id != book.Id)
@@ -91,6 +92,7 @@ namespace Books_Crud_API.Controllers
         /// <param name="book">New book with info to be added.</param>
         /// <returns>Newly created book</returns>
         [HttpPost]
+        [ProducesResponseType(typeof(List<Book>), StatusCodes.Status201Created)]
         public async Task<ActionResult<Book>> PostBook(Book book)
         {
             // update timestamps
@@ -110,6 +112,7 @@ namespace Books_Crud_API.Controllers
         /// <param name="id">Identifier for the book</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(List<Book>), StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteBook(int id)
         {
             var book = await _context.Books.FindAsync(id);

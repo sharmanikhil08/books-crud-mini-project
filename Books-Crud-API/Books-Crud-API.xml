@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Books-Crud-API</name>
+    </assembly>
+    <members>
+        <member name="M:Books_Crud_API.Controllers.BooksController.GetBooks">
+            <summary>
+            Get all books
+            </summary>
+            <returns>A list of all books</returns>
+        </member>
+        <member name="M:Books_Crud_API.Controllers.BooksController.GetBook(System.Int32)">
+            <summary>
+            Get a specific book by id
+            </summary>
+            <param name="id">Identifier for the book</param>
+            <returns>Requested book</returns>
+        </member>
+        <member name="M:Books_Crud_API.Controllers.BooksController.PutBook(System.Int32,Books_Crud_API.Models.Book)">
+            <summary>
+            Update a book
+            </summary>
+            <param name="id">Identifier for the book</param>
+            <param name="book">Book with updated information</param>
+            <returns></returns>
+        </member>
+        <member name="M:Books_Crud_API.Controllers.BooksController.PostBook(Books_Crud_API.Models.Book)">
+            <summary>
+            Add a new book
+            </summary>
+            <param name="book">New book with info to be added.</param>
+            <returns>Newly created book</returns>
+        </member>
+        <member name="M:Books_Crud_API.Controllers.BooksController.DeleteBook(System.Int32)">
+            <summary>
+            Delete a book by id
+            </summary>
+            <param name="id">Identifier for the book</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
