@@ -20,16 +20,18 @@ export default {
   margin-top: 50px;
 }
 
-.modal-title {
-  margin: auto;
+.modal-title,
+.modal-dialog {
+  margin: auto !important;
 }
 
 .modal-dialog {
   margin: 0;
 }
+
 @media only screen and (max-width: 360px) {
   .modal {
-    max-width: 250px;
+    max-width: 100vw;
   }
 }
 </style>

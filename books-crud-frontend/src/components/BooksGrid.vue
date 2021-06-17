@@ -1,9 +1,9 @@
 <template>
   <div class="books-table">
-    <b-button v-b-modal.add-modal variant="success" class="add-button"
-      >Add new book</b-button
-    >
     <b-container>
+      <b-button v-b-modal.add-modal variant="success" class="add-button"
+        >Add new book</b-button
+      >
       <b-modal
         id="add-modal"
         size="sm"
@@ -13,96 +13,96 @@
       >
         <add-book @refreshGrid="retrieveBooks()"></add-book>
       </b-modal>
-    </b-container>
-    <b-table
-      ref="books-grid"
-      striped
-      hover
-      :items="items"
-      :fields="fields"
-      :current-page="currentPage"
-      :per-page="perPage"
-      :responsive="true"
-    >
-      <template #row-details="row">
-        <b-card>
-          <ul>
-            <li v-for="(value, key) in row.item" :key="key">
-              {{ key }}: {{ value }}
-            </li>
-          </ul>
-        </b-card>
-      </template>
+      <b-table
+        ref="books-grid"
+        striped
+        hover
+        :items="items"
+        :fields="fields"
+        :current-page="currentPage"
+        :per-page="perPage"
+        :responsive="true"
+      >
+        <template #row-details="row">
+          <b-card>
+            <ul>
+              <li v-for="(value, key) in row.item" :key="key">
+                {{ key }}: {{ value }}
+              </li>
+            </ul>
+          </b-card>
+        </template>
 
-      <template #cell(isAvailable)="row">
-        {{ row.item.isAvailable ? "Yes" : "No" }}
-      </template>
+        <template #cell(isAvailable)="row">
+          {{ row.item.isAvailable ? "Yes" : "No" }}
+        </template>
 
-      <template #cell(actions)="row">
-        <b-button size="sm" @click="edit(row.item)" class="mr-1">
-          Edit
-        </b-button>
+        <template #cell(actions)="row">
+          <b-button size="sm" @click="edit(row.item)" class="mr-1">
+            Edit
+          </b-button>
+          <b-button
+            size="sm"
+            @click="remove(row.item)"
+            class="mr-1"
+            variant="danger"
+          >
+            Delete
+          </b-button>
+        </template>
+      </b-table>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="totalRows"
+        :per-page="perPage"
+        align="fill"
+        size="sm"
+        class="my-0"
+      ></b-pagination>
+      <!-- Edit modal -->
+      <b-modal id="edit-modal" size="sm" title="Edit Book" centered hide-footer>
+        <edit-book :form="selectedItem"></edit-book>
+      </b-modal>
+      <!-- Delete modal -->
+      <b-modal
+        id="delete-modal"
+        size="sm"
+        title="Delete Book"
+        centered
+        hide-footer
+      >
+        <p>
+          Are you sure you want to delete this book: <br />
+          <span style="color: red">{{ selectedItem.title }}</span
+          >?
+        </p>
         <b-button
-          size="sm"
-          @click="remove(row.item)"
-          class="mr-1"
+          size="md"
           variant="danger"
+          class="mr-3"
+          @click="confirmDelete()"
         >
           Delete
         </b-button>
-      </template>
-    </b-table>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="totalRows"
-      :per-page="perPage"
-      align="fill"
-      size="sm"
-      class="my-0"
-    ></b-pagination>
-    <!-- Edit modal -->
-    <b-modal id="edit-modal" size="sm" title="Edit Book" centered hide-footer>
-      <edit-book :form="selectedItem"></edit-book>
-    </b-modal>
-    <!-- Delete modal -->
-    <b-modal
-      id="delete-modal"
-      size="sm"
-      title="Delete Book"
-      centered
-      hide-footer
-    >
-      <p>
-        Are you sure you want to delete this book: <br />
-        <span style="color: red">{{ selectedItem.title }}</span
-        >?
-      </p>
-      <b-button
-        size="md"
-        variant="danger"
-        class="mr-3"
-        @click="confirmDelete()"
+        <b-button
+          size="md"
+          class="mr-3"
+          style="float: right"
+          @click="$bvModal.hide('delete-modal')"
+        >
+          Cancel
+        </b-button>
+      </b-modal>
+      <!-- Toast for success notification -->
+      <b-toast
+        refs="toast"
+        id="notification-toast"
+        title="Book Deleted"
+        :visible="showToast"
       >
-        Delete
-      </b-button>
-      <b-button
-        size="md"
-        class="mr-3"
-        style="float: right"
-        @click="$bvModal.hide('delete-modal')"
-      >
-        Cancel
-      </b-button>
-    </b-modal>
-    <!-- Toast for success notification -->
-    <b-toast
-      refs="toast"
-      id="notification-toast"
-      title="Book Deleted"
-      :visible="showToast"
-    >
-      Book was successfully deleted!
-    </b-toast>
+        Book was successfully deleted!
+      </b-toast>
+    </b-container>
   </div>
 </template>
 
