@@ -17,7 +17,11 @@
 </template>
 
 <script>
+import BookDataService from "../services/BookDataService";
 export default {
+  mounted() {
+    this.retrieveBooks();
+  },
   data() {
     return {
       fields: ["id", "title", "author", "publicationYear"],
@@ -51,6 +55,17 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    retrieveBooks() {
+      BookDataService.getAll()
+        .then((response) => {
+          this.items = response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
 };
 </script>
