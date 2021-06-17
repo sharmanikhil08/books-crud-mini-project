@@ -1,12 +1,22 @@
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <h1 class="page-header">BOOKS</h1>
+    <books-grid></books-grid>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import BooksGrid from "@/components/BooksGrid.vue";
 
 export default {
   name: "Home",
-  components: {},
+  components: { "books-grid": BooksGrid },
 };
 </script>
+
+<style>
+.page-header {
+  margin-top: 50px;
+}
+</style>
