@@ -32,7 +32,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Title\": \"Clean Architecture\",\r\n    \"Author\": \"Bob Martin\",\r\n    \"PublicationYear\": \"1991\",\r\n    \"isAvailable\": true,\r\n    \"CallNumber\": \"382838\"\r\n}",
+					"raw": "{\r\n    \"Title\": \"Clean Architecture\",\r\n    \"Author\": \"Bob Martin\",\r\n    \"PublicationYear\": \"1991\",\r\n    \"isAvailable\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
