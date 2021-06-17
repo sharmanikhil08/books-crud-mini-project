@@ -20,6 +20,10 @@
           </b-card>
         </template>
 
+        <template #cell(isAvailable)="row">
+          {{ row.item.isAvailable ? "Yes" : "No" }}
+        </template>
+
         <template #cell(actions)="row">
           <b-button size="sm" @click="edit(row.item)" class="mr-1">
             Edit
@@ -116,6 +120,12 @@ export default {
         {
           key: "publicationYear",
           label: "Published",
+          sortable: true,
+          sortDirection: "desc",
+        },
+        {
+          key: "isAvailable",
+          label: "Available?",
           sortable: true,
           sortDirection: "desc",
         },
