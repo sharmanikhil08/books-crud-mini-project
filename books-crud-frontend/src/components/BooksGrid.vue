@@ -1,7 +1,20 @@
 <template>
   <div class="books-table">
     <b-container>
+      <b-button v-b-modal.add-modal variant="success" class="add-button"
+        >Add new book</b-button
+      >
+      <b-modal
+        id="add-modal"
+        size="sm"
+        title="Add new book"
+        centered
+        hide-footer
+      >
+        <add-book @refreshGrid="retrieveBooks()"></add-book>
+      </b-modal>
       <b-table
+        ref="books-grid"
         striped
         hover
         :items="items"
@@ -47,11 +60,17 @@
         class="my-0"
       ></b-pagination>
       <!-- Edit modal -->
-      <b-modal id="edit-modal" title="Edit Book" centered hide-footer>
+      <b-modal id="edit-modal" size="sm" title="Edit Book" centered hide-footer>
         <edit-book :form="selectedItem"></edit-book>
       </b-modal>
       <!-- Delete modal -->
-      <b-modal id="delete-modal" title="Delete Book" centered hide-footer>
+      <b-modal
+        id="delete-modal"
+        size="sm"
+        title="Delete Book"
+        centered
+        hide-footer
+      >
         <p>
           Are you sure you want to delete this book: <br />
           <span style="color: red">{{ selectedItem.title }}</span
@@ -88,13 +107,18 @@
 </template>
 
 <script>
+import AddBook from "@/components/AddBook.vue";
 import EditBook from "@/components/EditBook.vue";
 import BookDataService from "../services/BookDataService";
 export default {
-  components: { "edit-book": EditBook },
+  components: { "edit-book": EditBook, "add-book": AddBook },
   mounted() {
     // Get all books
     this.retrieveBooks();
+    // On add book, refresh list
+    this.$root.$on("bv::modal::hide", () => {
+      this.retrieveBooks();
+    });
   },
   data() {
     return {
@@ -183,6 +207,9 @@ export default {
 </script>
 
 <style>
+.add-button {
+  float: left;
+}
 .books-table {
   margin-top: 50px;
 }
